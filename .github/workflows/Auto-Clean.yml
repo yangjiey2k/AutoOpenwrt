@@ -1,7 +1,7 @@
 name: Auto-Clean
 
 on:
-  #自动清理：每天早上4点
+  #自动清理：每天早上3点
   push:
     branches:
       - ForMySelf
