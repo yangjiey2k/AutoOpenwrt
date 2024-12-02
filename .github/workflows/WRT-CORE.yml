@@ -13,7 +13,10 @@ on:
       WRT_NAME:
         required: true
         type: string
-      WRT_WIFI:
+      WRT_SSID:
+        required: true
+        type: string
+      WRT_WORD:
         required: true
         type: string
       WRT_IP:
@@ -43,7 +46,6 @@ env:
   WRT_TARGET: ${{inputs.WRT_TARGET}}
   WRT_THEME: ${{inputs.WRT_THEME}}
   WRT_NAME: ${{inputs.WRT_NAME}}
-  WRT_WIFI: ${{inputs.WRT_WIFI}}
   WRT_IP: ${{inputs.WRT_IP}}
   WRT_PW: ${{inputs.WRT_PW}}
   WRT_REPO: ${{inputs.WRT_REPO}}
@@ -231,7 +233,7 @@ jobs:
           tag_name: ${{env.WRT_TARGET}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
-            MTK和QCA全系带开源硬件加速！
+            全系带开源硬件加速！
             平台：${{env.WRT_TARGET}}
             设备：${{env.WRT_TYPE}}
             地址：${{env.WRT_IP}}
@@ -239,4 +241,5 @@ jobs:
             源码：${{env.WRT_REPO}}
             分支：${{env.WRT_BRANCH}}
             
-            WIFI密码：12345678
+            WIFI名称：${{env.WRT_SSID}}
+            WIFI密码：${{env.WRT_WORD}}
