@@ -231,17 +231,12 @@ jobs:
           tag_name: ${{env.WRT_TARGET}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
-            这是个平台固件包，内含多个设备！
-            请注意选择你需要的设备固件！
-            不要问，刷就完事了！
-
-            MTK和QCA全系带开源硬件加速，别问了！
-
-            WIFI密码：12345678
-
-            源码：${{env.WRT_REPO}}
-            分支：${{env.WRT_BRANCH}}
+            MTK和QCA全系带开源硬件加速！
             平台：${{env.WRT_TARGET}}
             设备：${{env.WRT_TYPE}}
             地址：${{env.WRT_IP}}
             密码：${{env.WRT_PW}}
+            源码：${{env.WRT_REPO}}
+            分支：${{env.WRT_BRANCH}}
+            
+            WIFI密码：12345678
