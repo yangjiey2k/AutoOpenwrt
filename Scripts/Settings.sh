@@ -52,7 +52,7 @@ if [[ $WRT_TARGET == "ROCKCHIP" ]]; then
   	echo "$WRT_TARGET - $WRT_IP SET"
 fi
 #修改immortalwrt.lan关联IP
-	sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
+sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 # Add restart dropbear firewall and DDNS
 SET_RESTART="./package/base-files/files/etc/uci-defaults/999_auto-restart.sh"
 sed -i "/exit/i/etc/init.d/firewall restart\n/etc/init.d/ddns restart\n" $SET_RESTART
