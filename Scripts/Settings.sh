@@ -37,7 +37,7 @@ if echo "$WRT_TARGET" | grep -Eiq "64|86"; then
 fi
 if [[ $WRT_TARGET == "R68S" ]]; then
 	sed -i "/uci commit network/iuci set network.wan.device=\'eth3\'\nuci set network.wan.proto=\'pppoe\'\nuci set network.wan.username=\'990001257663\'\nuci set network.wan.password=\'u6s3x4r8\'\nuci set network.@device[0].ports=\'eth0 eth1 eth2\'\nuci set network.lan.delegate=\'0\'\n" $SET_NETWROK
-	sed -i "/uci commit dhcp/iuci set dhcp.lan.ra=\'server\'\nuci set dhcp.lan.ndp=\'relay\'\nuci set dhcp.lan.ra_flags=\'none\'\nuci set dhcp.lan.dns_service=\'0\'\n" $SET_NETWROK
+	sed -i "/uci commit dhcp/iuci set dhcp.lan.start=\'150\'\nuci set dhcp.lan.limit=\'100\'\nuci set dhcp.lan.dhcp_option=\'6,119.29.29.29,1.1.1.1,223.5.5.5.5,114.114.114.114,8.8.8.8\'\nuci set dhcp.lan.ra=\'server\'\nuci set dhcp.lan.ndp=\'relay\'\nuci set dhcp.lan.ra_flags=\'none\'\nuci set dhcp.lan.dns_service=\'0\'\n" $SET_NETWROK
  	# MyOwn
 	sed -i "/exit/iuci set ddns.aliyun=\'service\'\nuci set ddns.aliyun.service_name=\'aliyun.com\'\nuci set ddns.aliyun.enabled=\'1\'\nuci set ddns.aliyun.lookup_host=\'fhome.bmwlive.club\'\nuci set ddns.aliyun.domain=\'fhome.bmwlive.club\'\nuci set ddns.aliyun.username=\'LTAIHiwKt52WZmKg\'\nuci set ddns.aliyun.password=\'Wlxr4IEL1IQKPtXaBlhVlGWqefF8BK\'\nuci set uci set ddns.aliyun.ip_source=\'web\'\nuci set ddns.aliyun.ip_url=\'http://ip.3322.net\'\nuci set ddns.aliyun.bind_network=\'wan\'\nuci commit ddns\n" $SET_NETWROK
 	# Firewall4 PortForward Configuration
@@ -46,7 +46,7 @@ if [[ $WRT_TARGET == "R68S" ]]; then
 fi
 if [[ $WRT_TARGET == "ROCKCHIP" ]]; then
 	sed -i "/uci commit network/iuci set network.lan.delegate=\'0\'\n" $SET_NETWROK
-	sed -i "/uci commit dhcp/iuci set dhcp.lan.ra=\'server\'\nuci set dhcp.lan.ndp=\'relay\'\nuci set dhcp.lan.ra_flags=\'none\'\nuci set dhcp.lan.dns_service=\'0\'\n" $SET_NETWROK
+	sed -i "/uci commit dhcp/iuci set dhcp.lan.start=\'150\'\nuci set dhcp.lan.limit=\'100\'\nuci set dhcp.lan.dhcp_option=\'6,119.29.29.29,1.1.1.1,223.5.5.5.5,114.114.114.114,8.8.8.8\'\nuci set dhcp.lan.ra=\'server\'\nuci set dhcp.lan.ndp=\'relay\'\nuci set dhcp.lan.ra_flags=\'none\'\nuci set dhcp.lan.dns_service=\'0\'\n" $SET_NETWROK
 	# Firewall4 PortForward Configuration
  	sed -i "/exit/iuci add firewall redirect\nuci set firewall.@redirect[0].target=\'DNAT\'\nuci set firewall.@redirect[0].src=\'wan\'\nuci set firewall.@redirect[0].dest=\'lan\'\nuci set firewall.@redirect[0].proto=\'tcp udp\'\nuci set firewall.@redirect[0].src_dport=\'8098\'\nuci set firewall.@redirect[0].dest_ip=\'$WRT_IP\'\nuci set firewall.@redirect[0].dest_port=\'80\'\nuci set firewall.@redirect[0].name=\'Router\'\nuci commit firewall\n" $SET_NETWROK
   	echo "$WRT_TARGET - $WRT_IP SET"
