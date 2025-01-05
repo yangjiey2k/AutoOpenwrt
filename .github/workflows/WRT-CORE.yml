@@ -119,7 +119,8 @@ jobs:
           restore-keys: ${{env.WRT_TARGET}}-${{env.WRT_VER}}
           path: |
             ./wrt/.ccache
-            ./wrt/staging_dir
+            ./wrt/staging_dir/host*
+            ./wrt/staging_dir/tool*
 
       - name: Update Caches
         if: env.WRT_TEST != 'true'
