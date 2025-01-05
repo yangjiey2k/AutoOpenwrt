@@ -129,6 +129,7 @@ jobs:
             find "./wrt/staging_dir" -type d -name "stamp" -not -path "*target*" | while read -r DIR; do
               find "$DIR" -type f -exec touch {} +
             done
+            
             mkdir -p ./wrt/tmp && echo "1" > ./wrt/tmp/.build
 
             echo "toolchain skiped done!"
