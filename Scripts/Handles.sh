@@ -56,7 +56,6 @@ fi
 #修复argon主题进度条颜色不同步
 if [ -d *"luci-theme-argon"* ]; then
 	sed -i 's/(--bar-bg)/(--primary)/g' $(find ./luci-theme-argon -type f -iname "cascade.*")
-
 	cd $PKG_PATH && echo "theme-argon has been fixed!"
 fi
 
