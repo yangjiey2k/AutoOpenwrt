@@ -3,12 +3,12 @@ name: Auto-Clean
 on:
   #自动清理：每天早上2点
   schedule:
-    - cron: 0 18 */2 * *
+    - cron: 0 18 * * *
   #手动清理
   workflow_dispatch:
     inputs:
       NUMBER:
-        default: '6'
+        default: '0'
         required: false
         type: string
 
@@ -26,4 +26,4 @@ jobs:
           releases_keep_latest: ${{inputs.NUMBER || '0'}}
           delete_tags: true
           delete_workflows: true
-          workflows_keep_day: 3
+          workflows_keep_day: 0
