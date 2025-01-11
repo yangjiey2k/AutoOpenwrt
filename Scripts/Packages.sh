@@ -14,7 +14,9 @@ UPDATE_PACKAGE() {
 
 	if [[ $PKG_SPECIAL == "pkg" ]]; then
 # 		cp -rf $(find ./$REPO_NAME/*/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune) ./
-  		find ./$REPO_NAME/ -maxdepth 3 -type d -name "*$PKG_NAME*" -exec cp -rf {} ./ \;
+#   		find ./$REPO_NAME/ -maxdepth 3 -type d -name "*$PKG_NAME*" -exec cp -rf {} ./ \;
+    		find ./$REPO_NAME/ -maxdepth 3 -type d -name "*$PKG_NAME*" ! -path "./$REPO_NAME/$PKG_NAME" -exec cp -rf {} ./ \;
+
 		rm -rf ./$REPO_NAME/
 	elif [[ $PKG_SPECIAL == "name" ]]; then
 		mv -f $REPO_NAME $PKG_NAME
