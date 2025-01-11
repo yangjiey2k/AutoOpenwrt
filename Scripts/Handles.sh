@@ -56,7 +56,7 @@ fi
 #修改argon主题字体和颜色
 if [ -d *"luci-theme-argon"* ]; then
 	cd ./luci-theme-argon/
-	# 更改 Argon 主题背景
+	# 上传自己的 Argon 主题背景
 	cp -f $GITHUB_WORKSPACE/pics/bg1.jpg ./luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 	sed -i '/font-weight:/ {/normal\|!important/! s/\(font-weight:\s*\)[^;]*;/\1normal;/}' $(find ./luci-theme-argon -type f -iname "*.css")
 	sed -i "s/#5e72e4/#31a1a1/; s/#5e72e4/#947f71/; s/'0.2'/'0.5'/; s/'none'/'bing'/" ./luci-app-argon-config/root/etc/config/argon
