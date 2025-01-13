@@ -60,7 +60,7 @@ if [ -d *"luci-theme-argon"* ]; then
 	cp -f $GITHUB_WORKSPACE/pics/bg1.jpg ./htdocs/luci-static/argon/img/bg1.jpg
 
 #  	cd ./luci-app-argon-config/
-# 	sed -i '/font-weight:/ {/normal\|!important/! s/\(font-weight:\s*\)[^;]*;/\normal;/}' $(find ./luci-theme-argon -type f -iname "*.css")
+# 	sed -i '/font-weight:/ {/normal\|!important/! s/\(font-weight:\s*\)[^;]*;/\1normal;/}' $(find ./luci-theme-argon -type f -iname "*.css")
 #	sed -i "s/#483d8b/#947f71/; s/'0.2'/'0.5'/; s/'none'/'bing'/" ./root/etc/config/argon
 
 	cd $PKG_PATH && echo "theme-argon has been customized!"
