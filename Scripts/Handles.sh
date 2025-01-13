@@ -19,7 +19,7 @@ if [ -d *"homeproxy"* ]; then
 
 	cd .. && rm -rf ./$HP_RULE/
 
-	cd $PKG_PATH && echo "homeproxy date has been updated!"
+	cd $PKG_PATH && echo "homeproxy data has been updated!"
 fi
 
 #预置OpenClash内核和数据
@@ -50,7 +50,7 @@ if [ -d *"openclash"* ]; then
 
 	chmod +x ./* && rm -rf ./*.gz
 
-	cd $PKG_PATH && echo "openclash date has been updated!"
+	cd $PKG_PATH && echo "OpenClash core and GEO data has been updated!"
 fi
 
 #修改argon主题字体和颜色
