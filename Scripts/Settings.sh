@@ -28,6 +28,7 @@ SET_NETWROK="./package/base-files/files/etc/uci-defaults/991_set-network.sh"
 # Check if the file exists, if not create it
 if [ ! -f "$SET_NETWORK" ]; then
     # If the file does not exist, create it and write the content
+    touch "$SET_NETWROK"
     echo "#!/bin/sh" > "$SET_NETWORK"
 
     # Write the script content into the file
