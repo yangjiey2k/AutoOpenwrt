@@ -87,7 +87,7 @@ if [[ $WRT_TARGET == "R68S" ]]; then
  	echo "$WRT_TARGET - $WRT_IP SET"
 fi
 if [[ $WRT_TARGET == "ROCKCHIP" ]]; then
-	sed -i "/uci commit network/i\   uci set network.lan.delegate=\'0\'\n" $SET_NETWROK
+	sed -i "/uci commit network/i\    uci set network.lan.delegate=\'0\'\n" $SET_NETWROK
 	sed -i "/uci commit dhcp/i\    uci set dhcp.lan.start=\'150\'\n    uci set dhcp.lan.limit=\'100\'\n    uci set dhcp.lan.ra=\'server\'\n    uci set dhcp.lan.ndp=\'relay\'\n    uci set dhcp.lan.ra_flags=\'none\'\n    uci set dhcp.lan.dns_service=\'0\'\n" $SET_NETWROK
 	# Firewall4 PortForward Configuration
  	sed -i "/exit 0/iuci add firewall redirect\nuci set firewall.@redirect[0].target=\'DNAT\'\nuci set firewall.@redirect[0].src=\'wan\'\nuci set firewall.@redirect[0].dest=\'lan\'\nuci set firewall.@redirect[0].proto=\'tcp udp\'\nuci set firewall.@redirect[0].src_dport=\'8098\'\nuci set firewall.@redirect[0].dest_ip=\'$WRT_IP\'\nuci set firewall.@redirect[0].dest_port=\'80\'\nuci set firewall.@redirect[0].name=\'Router\'\nuci commit firewall\n" $SET_NETWROK
