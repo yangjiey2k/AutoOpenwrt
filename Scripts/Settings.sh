@@ -25,12 +25,52 @@ fi
 
 # Network Configuration
 SET_NETWROK="./package/base-files/files/etc/uci-defaults/991_set-network.sh"
-# Check if the file exists, if not create it with the necessary header
-if [ ! -f "$SET_NETWROK" ]; then
-    echo "#!/bin/sh" > "$SET_NETWROK"
-    echo "uci commit network" >> "$SET_NETWROK"
-    echo "uci commit dhcp" >> "$SET_NETWROK"
-    echo "exit 0" >> "$SET_NETWROK"
+# Check if the file exists, if not create it
+if [ ! -f "$SET_NETWORK" ]; then
+    # If the file does not exist, create it and write the content
+    echo "File does not exist, creating the file..."
+    touch "$SET_NETWORK"
+
+    # Write the script content into the file
+    cat <<EOF > "$SET_NETWORK"
+#!/bin/sh
+
+# Check if network.globals.ula_prefix exists and is not empty
+ula_prefix=\$(uci get network.globals.ula_prefix 2>/dev/null)
+
+if [ -n "\$ula_prefix" ]; then
+    uci set dhcp.wan6=dhcp
+    uci set dhcp.wan6.interface='wan6'
+    uci set dhcp.wan6.ignore='1'
+
+    uci set dhcp.lan.force='1'
+    uci set dhcp.lan.ra='hybrid'
+    uci set dhcp.lan.ra_default='1'
+    uci set dhcp.lan.max_preferred_lifetime='1800'
+    uci set dhcp.lan.max_valid_lifetime='3600'
+
+    uci del dhcp.lan.dhcpv6
+    uci del dhcp.lan.ra_flags
+    uci del dhcp.lan.ra_slaac
+    uci add_list dhcp.lan.ra_flags='none'
+
+    uci commit dhcp
+
+    uci set network.wan6.reqaddress='try'
+    uci set network.wan6.reqprefix='auto'
+    uci set network.lan.ip6assign='64'
+    uci set network.lan.ip6ifaceid='eui64'
+    uci del network.globals.ula_prefix
+
+    uci commit network
+fi
+
+exit 0
+EOF
+
+    echo "File created and written successfully: $SET_NETWORK"
+else
+    echo "File already exists: $SET_NETWORK"
 fi
 
 if echo "$WRT_TARGET" | grep -Eiq "64|86"; then
