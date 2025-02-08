@@ -60,7 +60,7 @@ if [[ $WRT_TARGET == "ROCKCHIP" ]]; then
  	sed -i "/exit 0/iuci add firewall redirect\nuci set firewall.@redirect[0].target=\'DNAT\'\nuci set firewall.@redirect[0].src=\'wan\'\nuci set firewall.@redirect[0].dest=\'lan\'\nuci set firewall.@redirect[0].proto=\'tcp udp\'\nuci set firewall.@redirect[0].src_dport=\'8098\'\nuci set firewall.@redirect[0].dest_ip=\'$WRT_IP\'\nuci set firewall.@redirect[0].dest_port=\'80\'\nuci set firewall.@redirect[0].name=\'Router\'\nuci commit firewall\n" $SET_NETWROK
   	echo "$WRT_TARGET - $WRT_IP SET"
 fi
-cat "$SET_NETWROK"
+#cat "$SET_NETWROK"
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 # Add restart dropbear firewall and DDNS
