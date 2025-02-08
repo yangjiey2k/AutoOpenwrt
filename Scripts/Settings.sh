@@ -28,7 +28,6 @@ SET_NETWROK="./package/base-files/files/etc/uci-defaults/991_set-network.sh"
 # Check if the file exists, if not create it
 if [ ! -f "$SET_NETWORK" ]; then
     touch "$SET_NETWROK"
-	# echo -e "#!/bin/bash\n\n# Check if network.globals.ula_prefix exists and is not empty\nula_prefix=\$(uci get network.globals.ula_prefix 2>/dev/null)\n\nif [ -n \"\$ula_prefix\" ]; then\n    uci set dhcp.wan6=dhcp\n    uci set dhcp.wan6.interface='wan6'\n    uci set dhcp.wan6.ignore='1'\n\n    uci set dhcp.lan.force='1'\n    uci set dhcp.lan.ra='hybrid'\n    uci set dhcp.lan.ra_default='1'\n    uci set dhcp.lan.max_preferred_lifetime='1800'\n    uci set dhcp.lan.max_valid_lifetime='3600'\n\n    uci del dhcp.lan.dhcpv6\n    uci del dhcp.lan.ra_flags\n    uci del dhcp.lan.ra_slaac\n    uci add_list dhcp.lan.ra_flags='none'\n   uci commit dhcp\n\n    uci set network.wan6.reqaddress='try'\n    uci set network.wan6.reqprefix='auto'\n    uci set network.lan.ip6assign='64'\n    uci set network.lan.ip6ifaceid='eui64'\n    uci del network.globals.ula_prefix\n    uci commit network\nfi\n\nexit 0" >> "$SET_NETWROK"
     cat <<EOF >> "$SET_NETWROK"
 #!/bin/bash
 
@@ -94,7 +93,7 @@ if [[ $WRT_TARGET == "ROCKCHIP" ]]; then
  	sed -i "/exit 0/iuci add firewall redirect\nuci set firewall.@redirect[0].target=\'DNAT\'\nuci set firewall.@redirect[0].src=\'wan\'\nuci set firewall.@redirect[0].dest=\'lan\'\nuci set firewall.@redirect[0].proto=\'tcp udp\'\nuci set firewall.@redirect[0].src_dport=\'8098\'\nuci set firewall.@redirect[0].dest_ip=\'$WRT_IP\'\nuci set firewall.@redirect[0].dest_port=\'80\'\nuci set firewall.@redirect[0].name=\'Router\'\nuci commit firewall\n" $SET_NETWROK
   	echo "$WRT_TARGET - $WRT_IP SET"
 fi
-cat "$SET_NETWROK"
+#cat "$SET_NETWROK"
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 # Add restart dropbear firewall and DDNS
