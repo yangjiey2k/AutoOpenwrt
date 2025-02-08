@@ -28,12 +28,10 @@ SET_NETWROK="./package/base-files/files/etc/uci-defaults/991_set-network.sh"
 # Check if the file exists, if not create it
 if [ ! -f "$SET_NETWORK" ]; then
     # If the file does not exist, create it and write the content
-    echo "File does not exist, creating the file"
-    echo "#!/bin/sh" > $SET_NETWORK
-    echo "file created: $SET_NETWORK"
+    echo "#!/bin/sh" > "$SET_NETWORK"
 
     # Write the script content into the file
-    cat <<EOF > $SET_NETWORK
+    cat <<EOF > "$SET_NETWORK"
 
 # Check if network.globals.ula_prefix exists and is not empty
 ula_prefix=\$(uci get network.globals.ula_prefix 2>/dev/null)
@@ -67,10 +65,6 @@ fi
 
 exit 0
 EOF
-
-    echo "File created and written successfully: $SET_NETWORK"
-else
-    echo "File already exists: $SET_NETWORK"
 fi
 
 if echo "$WRT_TARGET" | grep -Eiq "64|86"; then
