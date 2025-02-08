@@ -28,7 +28,7 @@ SET_NETWROK="./package/base-files/files/etc/uci-defaults/991_set-network.sh"
 # Check if the file exists, if not create it
 if [ ! -f "$SET_NETWORK" ]; then
     # If the file does not exist, create it and write the content
-    echo "File does not exist, creating the file..."
+    echo "File does not exist, creating the file"
     echo "" > "$SET_NETWORK"
     echo "Empty file created: $SET_NETWORK"
 
