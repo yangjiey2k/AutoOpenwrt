@@ -63,7 +63,6 @@ fi
 
 exit 0
 EOF
-
 fi
 
 if echo "$WRT_TARGET" | grep -Eiq "64|86"; then
