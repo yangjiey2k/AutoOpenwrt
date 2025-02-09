@@ -90,6 +90,7 @@ jobs:
 
       - name: Clone Code
         run: |
+          df -hT $PWD
           git clone --depth=1 --single-branch --branch $WRT_BRANCH $WRT_REPO ./wrt/
 
       - name: Update Feeds
