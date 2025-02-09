@@ -75,9 +75,9 @@ jobs:
           tool-cache: true
       - name: Clean up package manager cache
         run: |
-          #sudo apt-get clean
+          sudo apt-get clean
           sudo rm -rf /var/lib/apt/lists/*
-          sudo rm -rf /home/runner/runners
+          sudo rm -rf /home/runner/runners/2.322.0/_diag/pages/*.log
           sudo rm -rf /tmp/*
           df -h
 
