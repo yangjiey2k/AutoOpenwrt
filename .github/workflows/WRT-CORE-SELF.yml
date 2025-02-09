@@ -91,11 +91,11 @@ jobs:
       - name: Clone Code
         run: |
           df -hT $PWD
-          git clone --depth=1 --single-branch --branch $WRT_BRANCH $WRT_REPO ./wrt/
+          git clone --depth=1 --single-branch --branch $WRT_BRANCH $WRT_REPO wrt
 
       - name: Update Feeds
         run: |
-          cd ./wrt/
+          cd wrt
 
           ./scripts/feeds update -a
           ./scripts/feeds install -a
