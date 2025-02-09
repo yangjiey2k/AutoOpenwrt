@@ -74,6 +74,9 @@ jobs:
           swap-storage: true
           tool-cache: true
 
+      - name: Clean up temporary files
+        run: sudo rm -rf /tmp/*
+
       - name: Initialization Environment
         env:
           DEBIAN_FRONTEND: noninteractive
