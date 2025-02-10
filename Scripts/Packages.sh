@@ -18,9 +18,18 @@ UPDATE_PACKAGE() {
 
     # 删除本地可能存在的不同名称的软件包
     for NAME in "${CUSTOM_NAMES[@]}"; do
-        # 查找并删除匹配的目录
-        if find ./ ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$NAME*" -exec rm -rf {} + >/dev/null 2>&1; then
-            echo "Deleted existing package directories matching name: $NAME"
+        echo "Searching for directories matching name: $NAME"
+        # 查找匹配的目录
+        local FOUND_DIRS=$(find ./ ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$NAME*" 2>/dev/null)
+
+        if [ -n "$FOUND_DIRS" ]; then
+            echo "Found directories to delete:"
+            echo "$FOUND_DIRS"
+            # 删除找到的目录
+            echo "$FOUND_DIRS" | while read -r DIR; do
+                rm -rf "$DIR"
+                echo "Deleted directory: $DIR"
+            done
         else
             echo "No directories found matching name: $NAME"
         fi
@@ -37,6 +46,8 @@ UPDATE_PACKAGE() {
         mv -f $REPO_NAME $PKG_NAME
     fi
 }
+# 调用示例
+UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "custom_name1 custom_name2"
 #UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 # 调用示例
 # UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "custom_name1 custom_name2"
