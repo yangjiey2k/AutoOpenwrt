@@ -35,7 +35,7 @@ UPDATE_PACKAGE() {
     done
 
     # 克隆 GitHub 仓库
-    if ! git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"; then
+    git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"
 
     # 处理克隆的仓库
     if [[ $PKG_SPECIAL == "pkg" ]]; then
