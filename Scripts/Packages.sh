@@ -43,8 +43,6 @@ UPDATE_PACKAGE() {
         rm -rf ./$REPO_NAME/
     elif [[ $PKG_SPECIAL == "name" ]]; then
         mv -f $REPO_NAME $PKG_NAME
-    else
-        echo "Warning: Unknown PKG_SPECIAL value '$PKG_SPECIAL'. Skipping special handling."
     fi
 }
 
