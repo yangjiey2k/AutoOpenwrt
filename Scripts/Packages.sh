@@ -18,24 +18,24 @@ UPDATE_PACKAGE() {
 
     # 删除本地可能存在的不同名称的软件包
     for NAME in "${CUSTOM_NAMES[@]}"; do
-        # echo "Searching for directories matching name: $NAME"
-        # 查找匹配的目录（支持路径中包含空格）
-        while IFS= read -r -d '' DIR; do
-            echo "Found directory to delete: $DIR"
-            rm -rf "$DIR"
-            echo "Deleted directory: $DIR"
-        done < <(find ./ ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$NAME*" -print0 2>/dev/null)
+        #echo "Searching for directories matching name: $NAME"
+        # 查找匹配的目录
+        local FOUND_DIRS=$(find ./ ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$NAME*" 2>/dev/null)
 
-        if [ $? -ne 0 ]; then
+        if [ -n "$FOUND_DIRS" ]; then
+            echo "Found directories to delete: $FOUND_DIRS"
+            # 删除找到的目录
+            echo "$FOUND_DIRS" | while read -r DIR; do
+                rm -rf "$DIR"
+                echo "Deleted directory: $DIR"
+            done
+        else
             echo "No directories found matching name: $NAME"
         fi
     done
 
     # 克隆 GitHub 仓库
     if ! git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"; then
-        echo "Error: Failed to clone repository $PKG_REPO"
-        exit 1
-    fi
 
     # 处理克隆的仓库
     if [[ $PKG_SPECIAL == "pkg" ]]; then
