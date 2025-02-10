@@ -18,7 +18,7 @@ UPDATE_PACKAGE() {
 
     # 删除本地可能存在的不同名称的软件包
     for NAME in "${CUSTOM_NAMES[@]}"; do
-        echo "Searching for directories matching name: $NAME"
+        # echo "Searching for directories matching name: $NAME"
         # 查找匹配的目录（支持路径中包含空格）
         while IFS= read -r -d '' DIR; do
             echo "Found directory to delete: $DIR"
