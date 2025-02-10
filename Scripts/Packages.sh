@@ -46,8 +46,7 @@ UPDATE_PACKAGE() {
         mv -f $REPO_NAME $PKG_NAME
     fi
 }
-# 调用示例
-UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "custom_name1 custom_name2"
+
 #UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 # 调用示例
 # UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "custom_name1 custom_name2"
