@@ -27,9 +27,11 @@ UPDATE_PACKAGE() {
     local CUSTOM_NAMES=($5)  # 第5个参数为自定义名称列表
     local REPO_NAME=$(echo $PKG_REPO | cut -d '/' -f 2)
 
-    # 如果没有传入自定义名称，则默认只使用 PKG_NAME
-    if [ ${#CUSTOM_NAMES[@]} -eq 0 ]; then
-        CUSTOM_NAMES=("$PKG_NAME")
+    # 将 PKG_NAME 加入到需要查找的名称列表中
+    if [ ${#CUSTOM_NAMES[@]} -gt 0 ]; then
+        CUSTOM_NAMES=("$PKG_NAME" "${CUSTOM_NAMES[@]}")  # 将 PKG_NAME 添加到自定义名称列表的开头
+    else
+        CUSTOM_NAMES=("$PKG_NAME")  # 如果没有自定义名称，则只使用 PKG_NAME
     fi
 
     # 删除本地可能存在的不同名称的软件包
@@ -54,10 +56,13 @@ UPDATE_PACKAGE() {
     fi
 }
 
+# 调用示例
+UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master" "" "custom_name1 custom_name2"
+
 #UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 UPDATE_PACKAGE "luci-theme-argon" "jerrykuku/luci-theme-argon" "master"
 UPDATE_PACKAGE "luci-app-argon-config" "jerrykuku/luci-app-argon-config" "master"
-UPDATE_PACKAGE "open-app-filter" "destan19/OpenAppFilter" "master" "luci-app-appfilter"
+UPDATE_PACKAGE "open-app-filter" "destan19/OpenAppFilter" "master" "" "luci-app-appfilter" "oaf"
 
 UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
