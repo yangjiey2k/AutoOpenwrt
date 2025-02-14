@@ -28,13 +28,13 @@ permissions: write-all
 #CI任务
 jobs:
   config:
-    name: ${{matrix.config.TARGET}}
+    name: ${{matrix.CONFIG.TARGET}}
     strategy:
       fail-fast: false
       #max-parallel: 3
       matrix:
         #TARGET: [ROCKCHIP, X86, R68S]
-        config:
+        CONFIG:
           - TARGET: ROCKCHIP
             IP: 192.168.11.1
           - TARGET: X86
@@ -48,7 +48,7 @@ jobs:
     uses: ./.github/workflows/WRT-CORE.yml
     with:
       #编译平台
-      WRT_TARGET: ${{matrix.config.TARGET}}
+      WRT_TARGET: ${{matrix.CONFIG.TARGET}}
       #默认主题
       WRT_THEME: argon
       #默认主机名
@@ -58,7 +58,7 @@ jobs:
       #默认WIFI密码
       WRT_WORD: 12345678
       #默认地址
-      WRT_IP: ${{ matrix.config.IP }}
+      WRT_IP: ${{ matrix.CONFIG.IP }}
       #默认密码，仅作提示，修改无用
       WRT_PW: 无
       #源码链接
