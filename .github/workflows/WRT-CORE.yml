@@ -73,11 +73,6 @@ jobs:
           large-packages: true
           swap-storage: true
           tool-cache: true
-      - name: Clean up package manager cache
-        run: |
-          sudo rm -rf /var/lib/apt/lists/*
-          sudo rm -rf /tmp/*
-          df -h
 
       - name: Initialization Environment
         env:
