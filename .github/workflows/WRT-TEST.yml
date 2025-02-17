@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       TARGET:
-        default: 'MEDIATEK'
+        default: 'ROCKCHIP'
         required: true
         type: choice
-        options: [MEDIATEK, ROCKCHIP, X86, R68S IPQ60XX-WIFI-YES, IPQ60XX-WIFI-NO, IPQ807X-WIFI-YES, IPQ807X-WIFI-NO, TEST]
+        options: [MEDIATEK, ROCKCHIP, X86, R68S, IPQ60XX-WIFI-YES, IPQ60XX-WIFI-NO, IPQ807X-WIFI-YES, IPQ807X-WIFI-NO, TEST]
       SOURCE:
         default: 'VIKINGYFY/immortalwrt'
         required: true
