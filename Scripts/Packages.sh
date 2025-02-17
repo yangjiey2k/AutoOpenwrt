@@ -9,6 +9,8 @@ UPDATE_PACKAGE() {
     local CUSTOM_NAMES=($5)  # 第5个参数为自定义名称列表
     local REPO_NAME=$(echo $PKG_REPO | cut -d '/' -f 2)
 
+    echo " "
+
     # 将 PKG_NAME 加入到需要查找的名称列表中
     if [ ${#CUSTOM_NAMES[@]} -gt 0 ]; then
         CUSTOM_NAMES=("$PKG_NAME" "${CUSTOM_NAMES[@]}")  # 将 PKG_NAME 添加到自定义名称列表的开头
