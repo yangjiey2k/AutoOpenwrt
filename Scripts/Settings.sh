@@ -52,6 +52,8 @@ if [ -n "\$ula_prefix" ]; then
 
     uci commit dhcp
 
+    uci set network.wan6=interface
+    uci set network.wan6.proto='dhcpv6'
     uci set network.wan6.device='@wan'
     uci set network.wan6.reqaddress='try'
     uci set network.wan6.reqprefix='auto'
