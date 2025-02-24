@@ -23,3 +23,16 @@ CONFIG_TARGET_ROOTFS_PARTSIZE=1024
 CONFIG_TARGET_ROOTFS_EXT4FS=n
 #插件调整
 CONFIG_PACKAGE_luci-app-dockerman=y
+# 启用Intel网卡驱动（例如ixgbe或i40e）
+CONFIG_PACKAGE_kmod-ixgbe=y
+CONFIG_PACKAGE_kmod-i40e=y
+
+# 启用Mellanox网卡驱动（如果需要）
+CONFIG_PACKAGE_kmod-mlx4-core=y
+CONFIG_PACKAGE_kmod-mlx4-en=y
+
+# 启用VFIO PCI驱动（用于SR-IOV虚拟化）
+CONFIG_PACKAGE_kmod-vfio-pci=y
+
+# 启用SR-IOV支持（确保内核支持）
+CONFIG_PACKAGE_kmod-sriov=y
