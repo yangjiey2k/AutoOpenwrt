@@ -261,5 +261,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{env.WRT_TARGET}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
+          body_path: ./wrt/release.txt
           files: ./wrt/upload/*.*
    
