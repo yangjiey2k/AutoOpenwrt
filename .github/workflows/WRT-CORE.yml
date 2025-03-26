@@ -255,7 +255,7 @@ jobs:
           echo -e "WIFI密码：${{env.WRT_WORD}}" >> ./release.txt
           echo -e "" >> ./release.txt
           echo -e "内核版本：${{env.WRT_KVER}}" >> ./release.txt
-          echo -e "插件列表：\n${{env.WRT_LIST}}" >> ./release.txt
+          echo -e "插件列表：\n${WRT_LIST// /$'\n'}" >> ./release.txt
           
       - name: Release Firmware
         uses: softprops/action-gh-release@v2
