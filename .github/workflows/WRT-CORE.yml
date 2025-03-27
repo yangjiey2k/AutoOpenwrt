@@ -215,7 +215,7 @@ jobs:
           if [[ $WRT_TEST != 'true' ]]; then
             echo "WRT_KVER=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^kernel - \K[\d\.]+' {} \;)" >> $GITHUB_ENV
             echo "WRT_LIST=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^luci-app[^ ]*' {} \; | tr '\n' ' ')" >> $GITHUB_ENV
-            
+
             find ./bin/targets/ -iregex ".*\(buildinfo\|json\|sha256sums\|packages\)$" -exec rm -rf {} +
 
             for TYPE in $WRT_TYPE ; do
@@ -231,9 +231,6 @@ jobs:
 
             make clean -j$(nproc)
           fi
-
-          echo "WRT_KVER=${KVER:-none}" >> $GITHUB_ENV
-          echo "WRT_LIST=${LIST:-none}" >> $GITHUB_ENV
 
       - name: Release Information
         run: |
