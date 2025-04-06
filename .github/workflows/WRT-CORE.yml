@@ -225,33 +225,27 @@ jobs:
 
             make clean -j$(nproc)
           fi
-
-      - name: Release Information
-        run: |
-          cd ./wrt/ && touch ./release.txt
- 
-          echo -e "全系带开源硬件加速" >> ./release.txt
-          echo -e "" >> ./release.txt
-          echo -e "源码：${{env.WRT_REPO}}" >> ./release.txt
-          echo -e "分支：${{env.WRT_BRANCH}}" >> ./release.txt
-          echo -e "提交：${{env.WRT_HASH}}" >> ./release.txt
-          echo -e "" >> ./release.txt
-          echo -e "配置：${{env.WRT_TYPE}}" >> ./release.txt
-          echo -e "平台：${{env.WRT_TARGET}}" >> ./release.txt
-          echo -e "" >> ./release.txt
-          echo -e "登录地址：${{env.WRT_IP}}" >> ./release.txt
-          echo -e "登录密码：${{env.WRT_PW}}" >> ./release.txt
-          echo -e "" >> ./release.txt
-          echo -e "WIFI名称：${{env.WRT_SSID}}" >> ./release.txt
-          echo -e "WIFI密码：${{env.WRT_WORD}}" >> ./release.txt
-          echo -e "" >> ./release.txt
-          echo -e "内核版本：${{env.WRT_KVER}}" >> ./release.txt
-          echo -e "插件列表：\n${WRT_LIST// /$'\n'}" >> ./release.txt
           
       - name: Release Firmware
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{env.WRT_TARGET}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
-          body_path: ./wrt/release.txt
           files: ./wrt/upload/*.*
-   
+          body: |
+            全系带开源硬件加速，别问了！
+
+            源码：${{env.WRT_REPO}}
+            分支：${{env.WRT_BRANCH}}
+            提交：${{env.WRT_HASH}}
+
+            配置：${{env.WRT_TYPE}}
+            平台：${{env.WRT_TARGET}}
+
+            登录地址：${{env.WRT_IP}}
+            登录密码：${{env.WRT_PW}}
+
+            WIFI名称：${{env.WRT_SSID}}
+            WIFI密码：${{env.WRT_WORD}}
+
+            内核版本：${{env.WRT_KVER}}
+            插件列表：${{env.WRT_LIST}}
