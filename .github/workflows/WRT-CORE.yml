@@ -78,6 +78,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          sudo -E apt -yqq purge firefox
           sudo -E apt-get -yqq update
           sudo -E apt-get -yqq full-upgrade
           sudo -E apt-get -yqq autoremove --purge
