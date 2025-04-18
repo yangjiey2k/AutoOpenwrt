@@ -44,7 +44,6 @@ if [ -n "\$ula_prefix" ]; then
     uci set dhcp.lan.ra_default='1'
     uci set dhcp.lan.max_preferred_lifetime='1800'
     uci set dhcp.lan.max_valid_lifetime='3600'
-    uci set dhcp.@dnsmasq[0].dns_redirect='0'
 
     uci del dhcp.lan.dhcpv6
     uci del dhcp.lan.ra_flags
