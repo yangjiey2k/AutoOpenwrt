@@ -25,50 +25,10 @@ fi
 
 # Network Configuration
 SET_NETWROK="./package/base-files/files/etc/uci-defaults/991_set-network.sh"
-# Check if the file exists, if not create it
-if [ ! -f "$SET_NETWORK" ]; then
-    touch "$SET_NETWROK"
-    cat <<EOF >> "$SET_NETWROK"
-#!/bin/bash
-
-# Check if network.globals.ula_prefix exists and is not empty
-ula_prefix=\$(uci get network.globals.ula_prefix 2>/dev/null)
-
-if [ -n "\$ula_prefix" ]; then
-     uci set dhcp.wan6=dhcp
-     uci set dhcp.wan6.interface='wan6'
-     uci set dhcp.wan6.ignore='1'
- 
-     uci set dhcp.lan.force='1'
-     uci set dhcp.lan.ra='hybrid'
-     uci set dhcp.lan.ra_default='1'
-     uci set dhcp.lan.max_preferred_lifetime='1800'
-     uci set dhcp.lan.max_valid_lifetime='3600'
- 
-     uci del dhcp.lan.dhcpv6
-     uci del dhcp.lan.ra_flags
-     uci del dhcp.lan.ra_slaac
-     uci add_list dhcp.lan.ra_flags='none'
- 
-     uci commit dhcp
- 
-     uci set network.wan6.reqaddress='try'
-     uci set network.wan6.reqprefix='auto'
-     uci set network.lan.ip6assign='64'
-     uci set network.lan.ip6ifaceid='eui64'
-     uci del network.globals.ula_prefix
- 
-     uci commit network
-
-fi
-
-exit 0
-EOF
-fi
 
 if echo "$WRT_TARGET" | grep -Eiq "64|86"; then
 	sed -i "/uci commit network/i\    uci set network.wan.device=\'eth1\'\n    uci set network.wan.proto=\'pppoe\'\n    uci set network.wan.username=\'990003835168\'\n    uci set network.wan.password=\'k5k4t5b6\'\n    uci set network.wan6.device=\'@wan\'\n    uci set network.@device[0].ports=\'eth0\'\n    uci set network.lan.delegate=\'0\'\n" $SET_NETWROK
-	sed -i "/uci commit dhcp/i\    uci set dhcp.lan.start=\'150\'\n    uci set dhcp.lan.limit=\'100\'\n    uci set dhcp.lan.ra=\'server\'\n    uci set dhcp.lan.ndp=\'relay\'\n    uci set dhcp.lan.ra_flags=\'none\'\n    uci set dhcp.lan.dns_service=\'0\'\n    uci add dhcp host\n    uci set dhcp.@host[0].name=\'HOME-SRV\'\n    uci set dhcp.@host[0].mac=\'90:2e:16:bd:0b:cc\'\n    uci set dhcp.@host[0].ip=\'192.168.50.8\'\n    uci set dhcp.@host[0].leasetime=\'infinite\'\n    uci add dhcp host\n    uci set dhcp.@host[1].name=\'AP\'\n    uci set dhcp.@host[1].mac=\'60:cf:84:28:8f:80\'\n    uci set dhcp.@host[1].ip=\'192.168.50.6\'\n    uci set dhcp.@host[1].leasetime=\'infinite\'\n" $SET_NETWROK
+	sed -i "/uci commit dhcp/i\    uci set dhcp.lan.start=\'150\'\n    uci set dhcp.lan.limit=\'100\'\n    uci add dhcp host\n    uci set dhcp.@host[0].name=\'HOME-SRV\'\n    uci set dhcp.@host[0].mac=\'90:2e:16:bd:0b:cc\'\n    uci set dhcp.@host[0].ip=\'192.168.50.8\'\n    uci set dhcp.@host[0].leasetime=\'infinite\'\n    uci add dhcp host\n    uci set dhcp.@host[1].name=\'AP\'\n    uci set dhcp.@host[1].mac=\'60:cf:84:28:8f:80\'\n    uci set dhcp.@host[1].ip=\'192.168.50.6\'\n    uci set dhcp.@host[1].leasetime=\'infinite\'\n" $SET_NETWROK
 	# MyOwn
 	sed -i "/exit 0/iuci set ddns.AliDDNS=\'service\'\nuci set ddns.AliDDNS.service_name=\'aliyun.com\'\nuci set ddns.AliDDNS.enabled=\'1\'\nuci set ddns.AliDDNS.lookup_host=\'homev6.bmwlive.club\'\nuci set ddns.AliDDNS.domain=\'homev6.bmwlive.club\'\nuci set ddns.AliDDNS.username=\'LTAIHiwKt52WZmKg\'\nuci set ddns.AliDDNS.password=\'Wlxr4IEL1IQKPtXaBlhVlGWqefF8BK\'\nuci set ddns.AliDDNS.use_ipv6=\'1\'\nuci set ddns.AliDDNS.ip_source=\'interface\'\nuci set ddns.AliDDNS.interface=\'pppoe-wan\'\nuci set ddns.AliDDNS.ip_interface=\'pppoe-wan\'\nuci set ddns.aliyun=\'service\'\nuci set ddns.aliyun.service_name=\'aliyun.com\'\nuci set ddns.aliyun.enabled=\'1\'\nuci set ddns.aliyun.lookup_host=\'home.bmwlive.club\'\nuci set ddns.aliyun.domain=\'home.bmwlive.club\'\nuci set ddns.aliyun.username=\'LTAIHiwKt52WZmKg\'\nuci set ddns.aliyun.password=\'Wlxr4IEL1IQKPtXaBlhVlGWqefF8BK\'\nuci set uci set ddns.aliyun.ip_source=\'web\'\nuci set ddns.aliyun.ip_url=\'http://ip.3322.net\'\nuci set ddns.aliyun.bind_network=\'wan\'\nuci commit ddns\n" $SET_NETWROK
 	# Firewall4 PortForward Configuration
