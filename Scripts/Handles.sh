@@ -53,18 +53,14 @@ fi
 	# cd $PKG_PATH && echo "OpenClash core and GEO data has been updated!"
 # fi
 
-# 修改argon主题字体和颜色
+#修改argon主题字体和颜色
 if [ -d *"luci-theme-argon"* ]; then
 	cd ./luci-theme-argon/
-	# 上传自己的 Argon 主题背景
 	cp -f $GITHUB_WORKSPACE/pics/bg1.jpg ./htdocs/luci-static/argon/img/bg1.jpg
- 	cd $PKG_PATH && echo "theme-argon background has been customized!"
+	sed -i "/font-weight:/ { /important/! { /\/\*/! s/:.*/: var(--font-weight);/ } }" $(find ./luci-theme-argon -type f -iname "*.css")
+	sed -i "s/primary '.*'/primary '#31a1a1'/; s/'0.2'/'0.5'/; s/'none'/'bing'/; s/'600'/'normal'/" ./luci-app-argon-config/root/etc/config/argon
 
- 	cd ./luci-app-argon-config/
-# 	sed -i '/font-weight:/ {/normal\|!important/! s/\(font-weight:\s*\)[^;]*;/\1normal;/}' $(find ./luci-theme-argon -type f -iname "*.css")
-	sed -i "s/'0.5'/'0.3'/" ./root/etc/config/argon
-
-	cd $PKG_PATH && echo "theme-argon-config has been customized!"
+	cd $PKG_PATH && echo "theme-argon has been fixed!"
 fi
 
 # 修改qca-nss-drv启动顺序
