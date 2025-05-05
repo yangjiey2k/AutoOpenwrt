@@ -67,58 +67,42 @@ if [ -d *"luci-theme-argon"* ]; then
 	cd $PKG_PATH && echo "theme-argon-config has been customized!"
 fi
 
-# 修改qca-nss-drv启动顺序
+#修改qca-nss-drv启动顺序
 NSS_DRV="../feeds/nss_packages/qca-nss-drv/files/qca-nss-drv.init"
 if [ -f "$NSS_DRV" ]; then
- 	sed -i 's/START=.*/START=85/g' $NSS_DRV
+	echo " "
+
+	sed -i 's/START=.*/START=85/g' $NSS_DRV
+
 	cd $PKG_PATH && echo "qca-nss-drv has been fixed!"
 fi
+
 #修改qca-nss-pbuf启动顺序
 NSS_PBUF="./kernel/mac80211/files/qca-nss-pbuf.init"
 if [ -f "$NSS_PBUF" ]; then
+	echo " "
+
 	sed -i 's/START=.*/START=86/g' $NSS_PBUF
+
 	cd $PKG_PATH && echo "qca-nss-pbuf has been fixed!"
 fi
 
-# 移除Shadowsocks组件
-PW_FILE=$(find ./ -maxdepth 3 -type f -wholename "*/luci-app-passwall/Makefile")
-if [ -f "$PW_FILE" ]; then
-	sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev/,/x86_64/d' $PW_FILE
-	sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR/,/default n/d' $PW_FILE
-	sed -i '/Shadowsocks_NONE/d; /Shadowsocks_Libev/d; /ShadowsocksR/d' $PW_FILE
-
-	cd $PKG_PATH && echo "passwall has been customized!"
-fi
-
-SP_FILE=$(find ./ -maxdepth 3 -type f -wholename "*/luci-app-ssr-plus/Makefile")
-if [ -f "$SP_FILE" ]; then
-	sed -i '/default PACKAGE_$(PKG_NAME)_INCLUDE_Shadowsocks_Libev/,/libev/d' $SP_FILE
-	sed -i '/config PACKAGE_$(PKG_NAME)_INCLUDE_ShadowsocksR/,/x86_64/d' $SP_FILE
-	sed -i '/Shadowsocks_NONE/d; /Shadowsocks_Libev/d; /ShadowsocksR/d' $SP_FILE
-
-	cd $PKG_PATH && echo "ssr-plus has been customized!"
-fi
-
-# 修复TailScale配置文件冲突
+#修复TailScale配置文件冲突
 TS_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/tailscale/Makefile")
 if [ -f "$TS_FILE" ]; then
+	echo " "
+
 	sed -i '/\/files/d' $TS_FILE
 
-	cd $PKG_PATH && echo "tailscale has been customized!"
+	cd $PKG_PATH && echo "tailscale has been fixed!"
 fi
 
-# 修复Coremark编译失败
+#修复Coremark编译失败
 CM_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/coremark/Makefile")
 if [ -f "$CM_FILE" ]; then
+	echo " "
+
 	sed -i 's/mkdir/mkdir -p/g' $CM_FILE
 
 	cd $PKG_PATH && echo "coremark has been fixed!"
-fi
-
-# 修复libffi编译失败
-LF_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/libffi/Makefile")
-if [ -f "$LF_FILE" ]; then
-	sed -i '/\/autoreconf/d' $LF_FILE
-
-	cd $PKG_PATH && echo "libffi has been fixed!"
 fi
